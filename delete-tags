@@ -1,0 +1,13 @@
+# You can push an 'empty' reference to the remote tag name:
+
+git push origin :tagname
+
+# Or, more expressively, use the --delete option (or -d if your git version is older than 1.8.0):
+
+git push --delete origin tagname
+
+2--------------------------------------------------------------------
+
+# A more straightforward way is
+
+git push --delete origin YOUR_TAG_NAME
