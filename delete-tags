@@ -1,13 +1,16 @@
-# You can push an 'empty' reference to the remote tag name:
-
-git push origin :tagname
-
-# Or, more expressively, use the --delete option (or -d if your git version is older than 1.8.0):
-
-git push --delete origin tagname
-
-2--------------------------------------------------------------------
-
-# A more straightforward way is
-
-git push --delete origin YOUR_TAG_NAME
+# How can I delete a remote tag?
+---------------------------------------------------------
+# 1- Clone the repo on your local environment
+  git clone <url repository>
+  
+# 2- List the tags present in the repo
+  git tag
+  
+# 3- Fetch your local repository
+  git fetch
+  
+# 4- delete remote tags
+  git tag -d <tag name>
+  git push --delete origin <tagname>  
+  
+# check the tag in your repository and manually remove the release draft create for that tag
