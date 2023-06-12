@@ -1,0 +1,31 @@
+#!/bin/bash
+
+USERNAME=""
+TOKEN=""
+REPO_NAME="example-repo"
+
+# Function to delete a repository
+function delete_repository() {
+    local repo_name="$1"
+    local delete_response=$(curl -s -u "$USERNAME:$TOKEN" -X DELETE https://api.github.com/repos/$USERNAME/$repo_name)
+    local status=$(echo "$delete_response" | jq -r '.message')
+
+    if [[ "$status" == "null" ]]; then
+        echo "Repository '$repo_name' deleted successfully."
+    else
+        echo "Failed to delete repository '$repo_name'. Error: $status"
+    fi
+}
+
+# Make an API request to fetch your repositories
+repos_info=$(curl -s -u "$USERNAME:$TOKEN" https://api.github.com/user/repos)
+
+# Check if the repository exists and prompt for deletion
+if echo "$repos_info" | grep -q "\"name\": \"$REPO_NAME\""; then
+    read -p "Do you want to delete repository '$REPO_NAME'? (y/n): " delete_option
+    if [[ "$delete_option" == "y" ]]; then
+        delete_repository "$REPO_NAME"
+    fi
+else
+    echo "Repository '$REPO_NAME' not found."
+fi
